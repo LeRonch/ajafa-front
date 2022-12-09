@@ -10,7 +10,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  public credentials: FormGroup;
 
   registerForm = new FormGroup({
     email: new FormControl(null, Validators.required),
@@ -18,7 +17,6 @@ export class RegisterPage implements OnInit {
     password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     profile_picture: new FormControl(null, Validators.required)
   });
-
 
 	constructor(
     private authService: AuthenticationService,

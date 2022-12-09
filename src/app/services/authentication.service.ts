@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, tap, switchMap } from 'rxjs/operators';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 import { Storage } from '@capacitor/storage';
 
 const TOKEN_KEY = 'my-token';
+const ID_KEY = 'user-id';
 const API_URL = 'http://127.0.0.1:8000';
 
 @Injectable({
@@ -12,7 +13,6 @@ const API_URL = 'http://127.0.0.1:8000';
 })
 
 export class AuthenticationService {
-	// Init with null to filter out the first value in a guard!
 	isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 	token = '';
 
@@ -32,8 +32,12 @@ export class AuthenticationService {
 
 	login(credentials: { email; password }): Observable<any> {
 		return this.http.post(`${API_URL}/api/login/`, credentials).pipe(
-			map((data: any) => data.token),
-			switchMap((token) => from(Storage.set({ key: TOKEN_KEY, value: token }))),
+      map((data: any) =>
+        {
+          from(Storage.set({ key: TOKEN_KEY, value: data.access }));
+          localStorage.setItem(ID_KEY, data.id);
+        }
+      ),
 			tap((_) => {
 				this.isAuthenticated.next(true);
 			})
@@ -41,19 +45,17 @@ export class AuthenticationService {
 	}
 
   register(registerForm): Observable<any> {
-
     const body = new FormData();
-
     body.append('email', registerForm.email);
     body.append('username', registerForm.username);
     body.append('password', registerForm.password);
     body.append('profile_picture', registerForm.profile_picture);
-
     return this.http.post(`${API_URL}/api/register/`, body);
   }
 
 	logout(): Promise<void> {
 		this.isAuthenticated.next(false);
+    localStorage.removeItem(ID_KEY);
 		return Storage.remove({ key: TOKEN_KEY });
 	}
 }

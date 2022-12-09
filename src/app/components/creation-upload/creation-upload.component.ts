@@ -1,19 +1,19 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-profile-pic-upload',
-  templateUrl: './profile-pic-upload.component.html',
-  styleUrls: ['./profile-pic-upload.component.scss'],
+  selector: 'app-creation-upload',
+  templateUrl: './creation-upload.component.html',
+  styleUrls: ['./creation-upload.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: ProfilePicUploadComponent,
+      useExisting: CreationUploadComponent,
       multi: true
     }
   ]
 })
-export class ProfilePicUploadComponent implements ControlValueAccessor {
+export class CreationUploadComponent implements ControlValueAccessor {
 
   // eslint-disable-next-line @typescript-eslint/ban-types
   onChange: Function;
@@ -22,13 +22,14 @@ export class ProfilePicUploadComponent implements ControlValueAccessor {
   constructor( private host: ElementRef<HTMLInputElement> ) {
   }
 
+
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
     const file = event && event.item(0);
     this.onChange(file);
     this.file = file;
   }
 
-  writeValue( value: null ) {
+  writeValue(value: null) {
     this.host.nativeElement.value = '';
     this.file = null;
   }

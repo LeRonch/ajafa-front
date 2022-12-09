@@ -1,19 +1,47 @@
+<!-- <ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>AJAFA</ion-title>
+	</ion-toolbar>
+</ion-header> -->
+
 <ion-split-pane contentId="main-content">
   <ion-menu contentId="main-content" type="overlay">
     <ion-content>
-      <ion-list id="inbox-list">
-        <ion-list-header>AJAFA</ion-list-header>
-        <ion-note>hi@ionicframework.com</ion-note>
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-          <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-            <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-            <ion-label>{{ p.title }}</ion-label>
+      <ion-list id="inbox-list" *ngIf="user">
+        <ion-img [src]="src"></ion-img>
+        <ion-list-header>{{user.username}}</ion-list-header>
+        <ion-note>{{user.email}}</ion-note>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item [routerLink]="''" lines="none" detail="false">
+            <ion-icon slot="start" [ios]="'home-outline'" [md]="'home-outline'"></ion-icon>
+            <ion-label>Browse</ion-label>
+          </ion-item>
+          <ion-item [routerLink]="'/home/search'" lines="none" detail="false">
+            <ion-icon slot="start" [ios]="'search-outline'" [md]="'search-outline'"></ion-icon>
+            <ion-label>Search</ion-label>
+          </ion-item>
+          <ion-item [routerLink]="'/home/upload'" lines="none" detail="false">
+            <ion-icon slot="start" [ios]="'add-circle-outline'" [md]="'add-circle-outline'"></ion-icon>
+            <ion-label>Upload</ion-label>
+          </ion-item>
+          <ion-item [routerLink]="'/home/favorites'" lines="none" detail="false">
+            <ion-icon slot="start" [ios]="'heart-outline'" [md]="'heart-outline'"></ion-icon>
+            <ion-label>Favorites</ion-label>
+          </ion-item>
+          <ion-item [routerLink]="'/home/tags'" lines="none" detail="false">
+            <ion-icon slot="start" [ios]="'pricetag-outline'" [md]="'pricetag-outline'"></ion-icon>
+            <ion-label>Tags</ion-label>
+          </ion-item>
+          <ion-item [routerLink]="'/home/profile'" lines="none" detail="false">
+            <ion-icon slot="start" [ios]="'person-circle-outline'" [md]="'person-circle-outline'"></ion-icon>
+            <ion-label>Profile</ion-label>
+          </ion-item>
+          <ion-item lines="none" detail="false" >
+            <app-logout></app-logout>
           </ion-item>
         </ion-menu-toggle>
-        <ion-item>
-          <ion-button expand="full" (click)="logout()">Logout</ion-button>
-        </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-split-pane>

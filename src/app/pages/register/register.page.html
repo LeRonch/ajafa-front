@@ -21,7 +21,9 @@
       <!-- <ion-item>
 				<ion-input type="password" placeholder="Confirm password" formControlName="confirmPassword"></ion-input>
 			</ion-item> -->
-      <app-profile-pic-upload formControlName="profile_picture"></app-profile-pic-upload>
+      <ion-item>
+        <app-profile-pic-upload formControlName="profile_picture"></app-profile-pic-upload>
+      </ion-item>
 		</div>
 		<ion-button type="submit" expand="block" [disabled]="!registerForm.valid">Register</ion-button>
 	</form>

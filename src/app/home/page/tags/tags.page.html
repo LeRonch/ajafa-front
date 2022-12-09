@@ -1,0 +1,13 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>Tags</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="button-list">
+    <ion-button *ngFor="let tag of tags">
+      {{ tag.label}} ({{tag.count}})
+    </ion-button>
+  </div>
+</ion-content>
