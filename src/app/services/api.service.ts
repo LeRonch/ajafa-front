@@ -25,16 +25,28 @@ export class ApiService {
     return this.http.get(`${API_URL}/api/tags/`);
   }
 
+  getCreationsByUser(userId): Observable<any> {
+    return this.http.get(`${API_URL}/api/usercreations/${userId}`);
+  }
+
+  getCreationById(creationId): Observable<any> {
+    return this.http.get(`${API_URL}/api/creation/${creationId}`);
+  }
+
+  getTagsbyId(tagId): Observable<any> {
+    return this.http.get(`${API_URL}/api/tag/${tagId}`);
+  }
+
   postCreation(uploadForm): Observable<any> {
     const body = new FormData();
     body.append('title', uploadForm.title);
     body.append('description', uploadForm.description);
     body.append('creation', uploadForm.creation);
     body.append('user_id', this.userId);
-    console.log(body);
+    body.append('tags_list', uploadForm.tags);
+    body.append('type', uploadForm.creation.name.endsWith('pdf') ? 'pdf' : 'img');
 
-    return;
-    // return this.http.post(`${API_URL}/api/upload/`, body);
+    return this.http.post(`${API_URL}/api/upload/`, body);
   }
 
 }

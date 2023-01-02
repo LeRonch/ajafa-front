@@ -1,0 +1,12 @@
+<ion-header *ngIf="creation">
+  <ion-toolbar>
+    <ion-title>{{creation[0].title | titlecase}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="creation">
+  <ion-img [src]="src"></ion-img>
+  <p *ngIf="creation[0].description !== 'null'">{{creation[0].description | titlecase}}</p>
+  <ion-icon name="heart-outline"></ion-icon> {{ creation[0].fav_count }}
+  <ion-icon name="download-outline"></ion-icon>{{ creation[0].download_count }}
+</ion-content>

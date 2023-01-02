@@ -8,6 +8,9 @@ export interface ProfilePicture {
   id: number;
   profile_picture: string;
   user: number;
+  paypal_link: string;
+  patreon_link: string;
+  twitter_link: string;
 }
 
 export interface TagsObject {
@@ -21,4 +24,17 @@ export interface Tag {
   id: number;
   label: string;
   count: number;
+}
+
+export interface Creation {
+  creation: string;
+  date: Date;
+  description: string;
+  download_count: number;
+  fav_count: number;
+  id: number;
+  tags?: number[];
+  title: string;
+  type: string;
+  user: number;
 }

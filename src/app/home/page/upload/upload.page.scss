@@ -1,0 +1,17 @@
+:host {
+
+  .tagsBox {
+    display: flex;
+    flex-direction: column;
+    height: 125px;
+    overflow: auto;
+    margin-left: 5%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    #tags {
+      margin-right: 10px;
+    }
+  }
+
+}

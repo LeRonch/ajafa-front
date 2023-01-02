@@ -11,6 +11,7 @@ import { BrowserPage } from './page/browser/browser.page';
 import { ProfilePage } from './page/profile/profile.page';
 import { FavoritesPage } from './page/favorites/favorites.page';
 import { TagsPage } from './page/tags/tags.page';
+import { DetailPage } from './page/detail/detail.page';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { TagsPage } from './page/tags/tags.page';
     ProfilePage,
     FavoritesPage,
     TagsPage,
+    DetailPage,
     CreationUploadComponent
   ],
 

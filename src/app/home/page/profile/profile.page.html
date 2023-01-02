@@ -1,3 +1,34 @@
 <ion-content>
-  <ion-button (click)="alert()">test</ion-button>
+  <div *ngIf="user">
+    <div class="header">
+      <ion-img class="pp" [src]="src"></ion-img>
+      <ion-list-header>{{user.username}}</ion-list-header>
+      <ion-list-header>{{user.email}}</ion-list-header>
+    </div>
+
+    <ion-item *ngIf="user.profile_picture.paypal_link ">
+      {{ user.profile_picture.paypal_link }}
+    </ion-item>
+    <ion-item *ngIf="user.profile_picture.patreon_link ">
+      {{ user.profile_picture.patreon_link }}
+    </ion-item>
+    <ion-item *ngIf="user.profile_picture.twitter_link ">
+      {{ user.profile_picture.twitter_link }}
+    </ion-item>
+  </div>
+
+  <div *ngIf="creations">
+
+    <div *ngFor="let creation of creations">
+      <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
+      <h1>
+        {{ creation.title }}
+      </h1>
+      <p *ngIf="creation.description !== 'null'">
+        {{ creation.description }}
+      </p>
+      <ion-icon name="heart-outline"></ion-icon> {{ creation.fav_count }}
+      <ion-icon name="download-outline"></ion-icon>{{ creation.download_count }}
+    </div>
+  </div>
 </ion-content>
