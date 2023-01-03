@@ -37,6 +37,14 @@ export class ApiService {
     return this.http.get(`${API_URL}/api/tag/${tagId}`);
   }
 
+  getCreationByTagId(tagId): Observable<any> {
+    return this.http.get(`${API_URL}/api/creationtag/${tagId}`);
+  }
+
+  getCreationByName(name): Observable<any> {
+    return this.http.get(`${API_URL}/api/creationname/${name}`);
+  }
+
   postCreation(uploadForm): Observable<any> {
     const body = new FormData();
     body.append('title', uploadForm.title);

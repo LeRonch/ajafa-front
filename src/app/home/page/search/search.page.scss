@@ -1,0 +1,15 @@
+:host {
+  form {
+    display: flex;
+
+    ::ng-deep input {
+      padding-left: 20px;
+    }
+
+  }
+
+  .placeholder {
+    text-align: center;
+    margin-top: 30%;
+  }
+}

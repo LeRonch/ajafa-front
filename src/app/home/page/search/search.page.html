@@ -1,9 +1,30 @@
-<ion-header>
   <ion-toolbar>
-    <ion-title>search</ion-title>
+    <form (ngSubmit)="search()" [formGroup]="searchForm">
+			<ion-input type="text" placeholder="Search !" formControlName="search"></ion-input>
+		  <ion-button type="submit" [disabled]="!searchForm.valid" shape="round" size="small" color="medium">
+        <ion-icon name="search-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </form>
   </ion-toolbar>
-</ion-header>
 
 <ion-content>
-
+  <div *ngIf="creations.length">
+    <div *ngFor="let creation of creations">
+      <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
+      <h1>
+        {{ creation.title }}
+      </h1>
+      <p *ngIf="creation.description !== 'null'">
+        {{ creation.description }}
+      </p>
+      <ion-icon name="heart-outline"></ion-icon> {{ creation.fav_count }}
+      <ion-icon name="download-outline"></ion-icon>{{ creation.download_count }}
+    </div>
+  </div>
+  <div *ngIf="!creations.length && searchActive" class="placeholder">
+    No Results :(
+  </div>
+  <div *ngIf="!creations.length && !searchActive" class="placeholder">
+    Search any creations by its title !
+  </div>
 </ion-content>

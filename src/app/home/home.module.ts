@@ -12,6 +12,7 @@ import { ProfilePage } from './page/profile/profile.page';
 import { FavoritesPage } from './page/favorites/favorites.page';
 import { TagsPage } from './page/tags/tags.page';
 import { DetailPage } from './page/detail/detail.page';
+import { SearchPage } from './page/search/search.page';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { DetailPage } from './page/detail/detail.page';
     BrowserPage,
     ProfilePage,
     FavoritesPage,
+    SearchPage,
     TagsPage,
     DetailPage,
     CreationUploadComponent

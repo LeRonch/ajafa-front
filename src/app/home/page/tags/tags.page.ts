@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Tag, TagsObject } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
@@ -14,7 +15,8 @@ export class TagsPage implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -25,9 +27,15 @@ export class TagsPage implements OnInit, OnDestroy {
       })
     );
   }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
     });
   }
+
+  search(id, label): void {
+    this.router.navigate(['/home/search/'], { state: { id, label } });
+  }
+
 }
