@@ -18,10 +18,10 @@ export class SearchPage implements OnInit, OnDestroy {
     search: new FormControl(null, Validators.minLength(3)),
   });
 
-  public label: string;
   public creations: Creation[] = [];
   public searchActive = false;
   public baseSrc: string = API_URL;
+  public label: string;
   private tagId: number;
   private subscriptions: Subscription[] = [];
 
@@ -31,6 +31,8 @@ export class SearchPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    console.log(this.router.getCurrentNavigation().extras.state);
+
     if (this.router.getCurrentNavigation().extras.state) {
       this.label = this.router.getCurrentNavigation().extras.state.label;
       this.tagId = this.router.getCurrentNavigation().extras.state.id;

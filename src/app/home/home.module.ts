@@ -13,6 +13,8 @@ import { FavoritesPage } from './page/favorites/favorites.page';
 import { TagsPage } from './page/tags/tags.page';
 import { DetailPage } from './page/detail/detail.page';
 import { SearchPage } from './page/search/search.page';
+import { ImageToolbarComponent } from '../components/image-toolbar/image-toolbar.component';
+import { UserDetailPage } from './page/userdetail/userdetail.page';
 
 @NgModule({
   imports: [
@@ -32,8 +34,10 @@ import { SearchPage } from './page/search/search.page';
     FavoritesPage,
     SearchPage,
     TagsPage,
+    UserDetailPage,
     DetailPage,
-    CreationUploadComponent
+    CreationUploadComponent,
+    ImageToolbarComponent,
   ],
 
 })

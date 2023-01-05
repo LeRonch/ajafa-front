@@ -1,3 +1,57 @@
 <ion-content>
-wxcwxcwxwxwcxwcxwxc
+
+  <div *ngIf="favCreations">
+    <h2>Most popular creations !</h2>
+
+    <div *ngFor="let favcreation of favCreations">
+      <ion-img [src]="baseSrc + favcreation.creation" (click)="seeDetail(favcreation.id)"></ion-img>
+      <h1>
+        {{ favcreation.title }}
+      </h1>
+      <h3>By <span (click)="seeUserDetail(favcreation.user.id)">{{ favcreation.user.username }}</span></h3>
+      <p *ngIf="favcreation.description !== 'null'">
+        {{ favcreation.description }}
+      </p>
+      <app-image-toolbar
+        [favCount]="favcreation.fav_count"
+        [downloadCount]="favcreation.download_count"
+        [creationId]="favcreation.id"
+        [userId]="favcreation.user.id"
+        [favorite]="favcreation['favorite']"
+        [url]="baseSrc + favcreation.creation"
+        [imgName]="favcreation.title"
+      >
+      </app-image-toolbar>
+
+    </div>
+  </div>
+
+  <div *ngIf="lastCreations">
+
+    <h2>Latest creations added !</h2>
+
+    <div *ngFor="let lastCreation of lastCreations">
+      <ion-img [src]="baseSrc + lastCreation.creation" (click)="seeDetail(lastCreation.id)"></ion-img>
+      <h1>
+        {{ lastCreation.title }}
+      </h1>
+      <h3>
+        By <span (click)="seeUserDetail(lastCreation.user.id)">{{ lastCreation.user.username }}</span>
+      </h3>
+
+      <p *ngIf="lastCreation.description !== 'null'">
+        {{ lastCreation.description }}
+      </p>
+      <app-image-toolbar
+        [favCount]="lastCreation.fav_count"
+        [downloadCount]="lastCreation.download_count"
+        [creationId]="lastCreation.id"
+        [userId]="lastCreation.user.id"
+        [favorite]="lastCreation['favorite']"
+        [url]="baseSrc + lastCreation.creation"
+        [imgName]="lastCreation.title"
+      >
+      </app-image-toolbar>
+    </div>
+  </div>
 </ion-content>

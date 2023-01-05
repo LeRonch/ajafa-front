@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Tag, TagsObject } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
@@ -24,7 +25,8 @@ export class UploadPage implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -48,10 +50,31 @@ export class UploadPage implements OnInit {
   upload() {
     this.apiService.postCreation(this.uploadForm.value).subscribe({
       next: () => {
-        this.router.navigateByUrl('/home', { replaceUrl: true });
+        this.successAlert();
       },
-      error: error => {},
+      error: error => {
+        this.failureAlert();
+      },
     });
   }
 
+  async successAlert() {
+    const alert = await this.alertController.create({
+      header: 'Success !',
+      message: 'Your links have been successfully updated',
+      buttons: ['Ok !'],
+    });
+
+    await alert.present();
+  }
+
+  async failureAlert() {
+    const alert = await this.alertController.create({
+      header: 'Woops !',
+      message: 'Sorry, it seems something went wrong ! Please refresh and try again !',
+      buttons: ['Ok...'],
+    });
+
+    await alert.present();
+  }
 }

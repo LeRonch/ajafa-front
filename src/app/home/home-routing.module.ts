@@ -8,6 +8,7 @@ import { ProfilePage } from './page/profile/profile.page';
 import { SearchPage } from './page/search/search.page';
 import { TagsPage } from './page/tags/tags.page';
 import { UploadPage } from './page/upload/upload.page';
+import { UserDetailPage } from './page/userdetail/userdetail.page';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path: 'profile', component: ProfilePage},
       {path: 'tags', component: TagsPage},
       {path: 'search', component: SearchPage},
+      {path: 'userdetail/:id', component: UserDetailPage},
       {path: 'detail/:id', component: DetailPage},
     ]
   },

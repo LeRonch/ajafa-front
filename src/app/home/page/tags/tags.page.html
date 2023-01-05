@@ -6,8 +6,10 @@
 
 <ion-content>
   <div class="button-list">
-    <ion-button *ngFor="let tag of tags" (click)="search(tag.id, tag.label)">
-      {{ tag.label}} ({{tag.count}})
-    </ion-button>
+    <span *ngFor="let tag of tags">
+      <ion-button  (click)="search(tag.id, tag.label)">
+        {{ tag.label}} ({{tag.count}})
+      </ion-button>
+    </span>
   </div>
 </ion-content>

@@ -25,6 +25,14 @@ export class ApiService {
     return this.http.get(`${API_URL}/api/tags/`);
   }
 
+  getTopFiveCreations(): Observable<any> {
+    return this.http.get(`${API_URL}/api/creationsfav/`);
+  }
+
+  getFiveLatestCreations(): Observable<any> {
+    return this.http.get(`${API_URL}/api/creationslatest/`);
+  }
+
   getCreationsByUser(userId): Observable<any> {
     return this.http.get(`${API_URL}/api/usercreations/${userId}`);
   }
@@ -41,8 +49,55 @@ export class ApiService {
     return this.http.get(`${API_URL}/api/creationtag/${tagId}`);
   }
 
+  getFavCreation(userId): Observable<any> {
+    return this.http.get(`${API_URL}/api/favcreation/${userId}`);
+  }
+
   getCreationByName(name): Observable<any> {
     return this.http.get(`${API_URL}/api/creationname/${name}`);
+  }
+
+  postFavorite(creationId: number, userId: number): Observable<any> {
+    const body = {
+      creation_id: creationId,
+      user_id: userId
+    };
+    return this.http.post(`${API_URL}/api/postfavorite/`, body);
+  }
+
+  deleteFavorite(creationId: number, userId: number): Observable<any> {
+    const options = {
+      body: {
+        creation_id: creationId,
+        user_id: userId
+      }
+    };
+    return this.http.delete(`${API_URL}/api/deletefavorite/`, options);
+  }
+
+  postDowloadCountIncrease(creationId: number): Observable<any> {
+    const body = {
+      creation_id: creationId,
+    };
+    return this.http.post(`${API_URL}/api/dowloadcount/`, body);
+  }
+
+  putLinks(linkForm): Observable<any> {
+    const body = new FormData();
+    body.append('paypal_link', linkForm.paypalLink ? linkForm.paypalLink : 'null');
+    body.append('patreon_link', linkForm.patreonLink ? linkForm.patreonLink : 'null');
+    body.append('twitter_link', linkForm.twitterLink ? linkForm.twitterLink : 'null');
+    body.append('user_id', this.userId);
+
+    return this.http.put(`${API_URL}/api/links/`, body);
+  }
+
+  putDesc(descForm): Observable<any> {
+    const body = new FormData();
+    body.append('description', descForm.description ? descForm.description : 'null');
+    body.append('user_id', this.userId);
+
+    return this.http.put(`${API_URL}/api/desc/`, body);
   }
 
   postCreation(uploadForm): Observable<any> {

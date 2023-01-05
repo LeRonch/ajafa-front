@@ -1,5 +1,23 @@
-
-
 <ion-content>
-dsdfsfsfdfd
+  <div *ngIf="creations.length">
+    <div *ngFor="let creation of creations">
+      <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
+      <h1>
+        {{ creation.title }}
+      </h1>
+      <p *ngIf="creation.description !== 'null'">
+        {{ creation.description }}
+      </p>
+      <app-image-toolbar
+        [favCount]="creation.fav_count"
+        [downloadCount]="creation.download_count"
+        [creationId]="creation.id"
+        [userId]="creation.user.id"
+        [favorite]="creation['favorite']"
+        [url]="baseSrc + creation.creation"
+        [imgName]="creation.title"
+      >
+      </app-image-toolbar>
+    </div>
+  </div>
 </ion-content>

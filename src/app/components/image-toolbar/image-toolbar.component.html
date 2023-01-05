@@ -1,0 +1,11 @@
+<span (click)="addToFav(creationId)" *ngIf="userId !== currentUserId && !isFavorite">
+  <ion-icon  style="color:rgb(255, 83, 83)" name="heart-outline"></ion-icon>
+</span>
+<span (click)="deleteFromFav(creationId)" *ngIf="userId !== currentUserId && isFavorite">
+  <ion-icon style="color:rgb(255, 83, 83)" name="heart"></ion-icon>
+</span>
+<ion-icon style="color:rgb(255, 83, 83)" name="heart" *ngIf="userId === currentUserId"></ion-icon>
+{{ updatedFavCount }}
+<span (click)="userId === currentUserId ? null : downloadCountIncrease(creationId)">
+  <ion-icon name="download-outline"></ion-icon>{{ updatedCount }}
+</span>

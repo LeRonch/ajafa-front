@@ -17,8 +17,16 @@
       <p *ngIf="creation.description !== 'null'">
         {{ creation.description }}
       </p>
-      <ion-icon name="heart-outline"></ion-icon> {{ creation.fav_count }}
-      <ion-icon name="download-outline"></ion-icon>{{ creation.download_count }}
+      <app-image-toolbar
+        [favCount]="creation.fav_count"
+        [downloadCount]="creation.download_count"
+        [creationId]="creation.id"
+        [userId]="creation.user.id"
+        [favorite]="creation['favorite']"
+        [url]="baseSrc + creation.creation"
+        [imgName]="creation.title"
+      >
+      </app-image-toolbar>
     </div>
   </div>
   <div *ngIf="!creations.length && searchActive" class="placeholder">
