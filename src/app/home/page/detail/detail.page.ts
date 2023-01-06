@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Creation, Tag } from 'src/app/interfaces/interface';
+import { Creation, Tag, Comment } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
 
 const ID_KEY = 'user-id';
 const API_URL = 'http://127.0.0.1:8000';
@@ -14,15 +16,23 @@ const API_URL = 'http://127.0.0.1:8000';
 })
 export class DetailPage implements OnInit, OnDestroy {
 
+  commentForm = new FormGroup({
+    comment: new FormControl(null, [Validators.min(3)]),
+  });
+
   public creation: Creation;
   public src: string;
+  public formIsOpen = false;
+  public comments: Comment[] = [];
   public tagsArray: string[] = [];
   private subscriptions: Subscription[] = [];
   private userId = localStorage.getItem(ID_KEY);
 
   constructor(
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -37,6 +47,9 @@ export class DetailPage implements OnInit, OnDestroy {
           });
         });
       }),
+      this.apiService.getComments(id).subscribe((data: Comment[]) => {
+        this.comments = data;
+      })
     );
   }
 
@@ -46,4 +59,41 @@ export class DetailPage implements OnInit, OnDestroy {
     });
   }
 
+  postComment(creationId: number): void {
+    this.apiService.postComment(this.commentForm.value, creationId).subscribe({
+      next: () => {
+        this.presentAlert();
+        this.ngOnInit();
+      },
+      error: error => {
+        this.failureAlert();
+      },
+    });
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Success !',
+      message: 'Your comment has been successfully posted !',
+      buttons: ['Ok !'],
+    });
+
+    await alert.present();
+  }
+
+  async failureAlert() {
+    const alert = await this.alertController.create({
+      header: 'Woops !',
+      message: 'Sorry, it seems something went wrong ! Please refresh and try again !',
+      buttons: ['Ok...'],
+    });
+  }
+
+  seeUserDetail(userId: number): void {
+    if(userId === +this.userId) {
+      this.router.navigateByUrl('/home/profile');
+    } else {
+      this.router.navigateByUrl(`/home/userdetail/${userId}`);
+    }
+  }
 }

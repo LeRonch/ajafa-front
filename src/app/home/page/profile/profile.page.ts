@@ -70,6 +70,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.apiService.putLinks(this.linkForm.value).subscribe({
       next: () => {
         this.presentAlert();
+        this.ngOnInit();
       },
       error: error => {
         this.failureAlert();

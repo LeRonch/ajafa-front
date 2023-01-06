@@ -82,6 +82,19 @@ export class ApiService {
     return this.http.post(`${API_URL}/api/dowloadcount/`, body);
   }
 
+  postComment(commentForm, creationId): Observable<any> {
+    const body = new FormData();
+    body.append('comment', commentForm.comment);
+    body.append('creation_id', creationId);
+    body.append('user_id', this.userId);
+
+    return this.http.post(`${API_URL}/api/comment/`, body);
+  }
+
+  getComments(creationId): Observable<any> {
+    return this.http.get(`${API_URL}/api/comments/${creationId}`);
+  }
+
   putLinks(linkForm): Observable<any> {
     const body = new FormData();
     body.append('paypal_link', linkForm.paypalLink ? linkForm.paypalLink : 'null');

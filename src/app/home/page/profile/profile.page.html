@@ -25,7 +25,9 @@
 
       <form>
         <form (ngSubmit)="addDesc()" [formGroup]="descForm">
-          <ion-input type="text" placeholder="Description" formControlName="description"></ion-input>
+          <ion-input type="text" [(ngModel)]="user.profile_picture.description" formControlName="description">
+
+          </ion-input>
 		      <ion-button type="submit" [disabled]="!descForm.valid">Update</ion-button>
         </form>
       </form>

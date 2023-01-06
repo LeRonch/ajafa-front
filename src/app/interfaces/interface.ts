@@ -28,6 +28,16 @@ export interface Tag {
   count: number;
 }
 
+export interface Comment {
+  content: string;
+  commenting_user: {
+    id: number;
+    username: string;
+  };
+  creation_id: number;
+  date: Date;
+}
+
 export interface Creation {
   creation: string;
   date: Date;

@@ -7,6 +7,7 @@
 <ion-content *ngIf="creation">
   <ion-img [src]="src"></ion-img>
   <p *ngIf="creation[0].description !== 'null'">{{creation[0].description | titlecase}}</p>
+  <h3>By <span (click)="seeUserDetail(creation[0].user.id)">{{ creation[0].user.username }}</span></h3>
   <app-image-toolbar
     [favCount]="creation[0].fav_count"
     [downloadCount]="creation[0].download_count"
@@ -17,5 +18,33 @@
     [imgName]="creation[0].title"
   >
   </app-image-toolbar>
+
+  <ion-button shape="round" (click)="formIsOpen = !formIsOpen">
+    Post a comment !<ion-icon name="pencil-outline"></ion-icon>
+  </ion-button>
+
+  <div *ngIf="formIsOpen">
+
+    <form>
+      <form (ngSubmit)="postComment(creation[0].id)" [formGroup]="commentForm">
+        <ion-input type="text" placeholder="Comment here..." formControlName="comment"></ion-input>
+        <ion-button type="submit" [disabled]="!commentForm.valid">Post</ion-button>
+      </form>
+    </form>
+
+  </div>
+
+  <div *ngIf="comments">
+    <div *ngFor="let comment of comments">
+      <div>
+        <span (click)="seeUserDetail(creation[0].user.id)">{{ comment.commenting_user.username }}</span> {{ comment.date | date: 'medium'}}
+      </div>
+      <p>
+        {{ comment.content }}
+      </p>
+    </div>
+
+  </div>
+
 
 </ion-content>
