@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+import { BehaviorSubject, of, Subject, Subscription } from 'rxjs';
+import { filter, first } from 'rxjs/operators';
 import { Creation } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -22,26 +23,40 @@ export class SearchPage implements OnInit, OnDestroy {
   public searchActive = false;
   public baseSrc: string = API_URL;
   public label: string;
-  private tagId: number;
+  public tagId: number;
+  public isCleared = true ;
+  private navExtra: boolean;
+  private navExtratSubject = new Subject<boolean>();
   private subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
     private apiService: ApiService,
-  ) { }
+  ) {
+
+    }
 
   ngOnInit() {
-    console.log(this.router.getCurrentNavigation().extras.state);
 
-    if (this.router.getCurrentNavigation().extras.state) {
-      this.label = this.router.getCurrentNavigation().extras.state.label;
-      this.tagId = this.router.getCurrentNavigation().extras.state.id;
-      this.subscriptions.push(
-        this.apiService.getCreationByTagId(this.tagId).subscribe((data: Creation[]) => {
-          this.creations = data;
-        })
-      );
-    }
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd )=> {
+      if(this.router.getCurrentNavigation()?.extras?.state) {
+        this.navExtratSubject.next(!this.navExtra);
+      }
+    });
+
+    this.navExtratSubject.subscribe((value) =>{
+      this.navExtra = value;
+      if (this.navExtra) {
+        this.label = this.router.getCurrentNavigation().extras.state.label;
+        this.tagId = this.router.getCurrentNavigation().extras.state.id;
+        this.isCleared = false;
+        this.subscriptions.push(
+          this.apiService.getCreationByTagId(this.tagId).subscribe((data: Creation[]) => {
+            this.creations = data;
+          })
+        );
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -63,5 +78,9 @@ export class SearchPage implements OnInit, OnDestroy {
         })
       );
     }
+  }
+
+  clear(): void {
+    this.isCleared = true;
   }
 }

@@ -7,7 +7,7 @@
 <ion-content>
   <div class="button-list">
     <span *ngFor="let tag of tags">
-      <ion-button  (click)="search(tag.id, tag.label)">
+      <ion-button *ngIf="tag.count > 0" (click)="search(tag.id, tag.label)">
         {{ tag.label}} ({{tag.count}})
       </ion-button>
     </span>

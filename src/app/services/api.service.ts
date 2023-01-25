@@ -75,6 +75,15 @@ export class ApiService {
     return this.http.delete(`${API_URL}/api/deletefavorite/`, options);
   }
 
+  deleteCreation(creationId: number): Observable<any> {
+    const options = {
+      body: {
+        creation_id: creationId,
+      }
+    };
+    return this.http.delete(`${API_URL}/api/deletecreation/`, options);
+  }
+
   postDowloadCountIncrease(creationId: number): Observable<any> {
     const body = {
       creation_id: creationId,

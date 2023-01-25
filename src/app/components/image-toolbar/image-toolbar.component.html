@@ -9,3 +9,6 @@
 <span (click)="userId === currentUserId ? null : downloadCountIncrease(creationId)">
   <ion-icon name="download-outline"></ion-icon>{{ updatedCount }}
 </span>
+<span *ngIf="userId === currentUserId" (click)="deleteCreation(creationId)">
+  <ion-icon name="trash-outline"></ion-icon>
+</span>

@@ -1,6 +1,8 @@
   <ion-toolbar>
     <form (ngSubmit)="search()" [formGroup]="searchForm">
-			<ion-input type="text" placeholder="Search !" formControlName="search"></ion-input>
+			<ion-input type="text" *ngIf="!isCleared" [innerText]="label" formControlName="search"></ion-input>
+			<ion-input type="text" placeholder="Search !" *ngIf="isCleared" formControlName="search"></ion-input>
+      <ion-icon *ngIf="!isCleared" name="trash-bin-outline" (click)="clear()"></ion-icon>
 		  <ion-button type="submit" [disabled]="!searchForm.valid" shape="round" size="small" color="medium">
         <ion-icon name="search-outline" slot="icon-only"></ion-icon>
       </ion-button>

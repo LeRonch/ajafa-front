@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 
 const ID_KEY = 'user-id';
@@ -25,6 +27,8 @@ export class ImageToolbarComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private alertController: AlertController,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -56,6 +60,10 @@ export class ImageToolbarComponent implements OnInit {
     });
   }
 
+  deleteCreation(creationId: number): void {
+    this.deleteAlert();
+  }
+
   downloadCountIncrease(creationId: number): void {
     this.apiService.postDowloadCountIncrease(creationId).subscribe({
       next: () => {
@@ -80,6 +88,29 @@ export class ImageToolbarComponent implements OnInit {
           a.click();
           window.URL.revokeObjectURL(blobUrl);
       })
-      .catch(() => alert('An error sorry'));
-}
+      .catch(() => alert('Something went wrong, sorry !'));
+  }
+
+  async deleteAlert() {
+    const alert = await this.alertController.create({
+      header: 'Confirmation',
+      message: 'Are you sure you want to delete this creation ?',
+      buttons: ['No',
+        {
+          text: 'Yes',
+          handler: () => {
+            this.apiService.deleteCreation(this.creationId).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/home');
+              },
+              error: error => {
+              },
+            });
+          }
+        }
+      ],
+    });
+
+    await alert.present();
+  }
 }
