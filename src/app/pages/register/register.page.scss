@@ -1,0 +1,35 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.image {
+  width: 140px ;
+  margin: auto;
+  padding-bottom: 25px;
+}
+
+.register {
+  color: #ff5b8c;
+  border: #ff5b8c 1px solid;
+}
+
+ion-content {
+	--padding-top: 3%;
+	--padding-start: 5%;
+	--padding-end: 5%;
+	--background:#262626;
+
+}
+
+ion-item {
+  margin-bottom: 10px ;
+	border-radius: 10px;
+
+}
+
+ion-toolbar {
+	background:#262626;
+
+}

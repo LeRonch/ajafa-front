@@ -1,5 +1,33 @@
 :host {
 
+  ion-content {
+    --padding-top: 3%;
+    --padding-start: 5%;
+    --padding-end: 5%;
+    --background:#3f3f3f;
+
+  }
+
+  h2 {
+    color: #ff5b8c;
+    font-style: italic;
+  }
+
+  ion-item {
+    border: rgb(159, 0, 77) solid 1px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form {
+    border: rgb(159, 0, 77) solid 1px;
+    margin-left: 3%;
+    border-radius: 10px;
+    margin-right: 3%;
+    margin-top: 3%;
+    padding: 15px;
+  }
+
   .tagsBox {
     display: flex;
     flex-direction: column;
@@ -11,6 +39,10 @@
 
     #tags {
       margin-right: 10px;
+    }
+
+    ion-label {
+      color: rgb(170, 170, 170);
     }
   }
 

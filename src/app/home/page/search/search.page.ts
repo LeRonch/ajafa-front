@@ -5,8 +5,8 @@ import { BehaviorSubject, of, Subject, Subscription } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 import { Creation } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
-
-const API_URL = 'http://127.0.0.1:8000';
+import { API_URL } from 'src/app/constants/constants';
+const ID_KEY = 'user-id';
 
 @Component({
   selector: 'app-search',
@@ -28,6 +28,7 @@ export class SearchPage implements OnInit, OnDestroy {
   private navExtra: boolean;
   private navExtratSubject = new Subject<boolean>();
   private subscriptions: Subscription[] = [];
+  private userId = localStorage.getItem(ID_KEY);
 
   constructor(
     private router: Router,
@@ -77,6 +78,14 @@ export class SearchPage implements OnInit, OnDestroy {
           this.creations = data;
         })
       );
+    }
+  }
+
+  seeUserDetail(userId: number): void {
+    if(userId === +this.userId) {
+      this.router.navigateByUrl('/home/profile');
+    } else {
+      this.router.navigateByUrl(`/home/userdetail/${userId}`);
     }
   }
 

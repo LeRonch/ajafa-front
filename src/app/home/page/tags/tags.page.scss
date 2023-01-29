@@ -1,28 +1,22 @@
 :host {
 
-  ion-header {
-    margin-bottom: 3%;
+  ion-content {
+    --padding-top: 3%;
+    --padding-start: 5%;
+    --padding-end: 5%;
+    --background:#3f3f3f;
   }
-
 
   ion-title {
     text-align: center;
   }
 
-  .button-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-  }
-
   ion-button {
-    min-width: 150px;
-    width: auto;
-    padding-right: 0.5%;
-    padding-left: 0.5%;
-    margin-bottom: 2%;
-    font-size: small;
     text-transform: capitalize;
+    width: 150px;
+    margin-right: 15px;
+    border: rgb(159, 0, 77) solid 1px;
+    border-radius: 9px;
   }
 
 }

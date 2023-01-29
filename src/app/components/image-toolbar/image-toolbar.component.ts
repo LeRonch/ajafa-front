@@ -46,7 +46,6 @@ export class ImageToolbarComponent implements OnInit {
       error: error => {
       },
     });
-
   }
 
   deleteFromFav(creationId: number): void {

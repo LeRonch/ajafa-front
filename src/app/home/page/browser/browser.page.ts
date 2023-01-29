@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Creation } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
+import { API_URL } from 'src/app/constants/constants';
 
-const API_URL = 'http://127.0.0.1:8000';
 const ID_KEY = 'user-id';
 
 @Component({

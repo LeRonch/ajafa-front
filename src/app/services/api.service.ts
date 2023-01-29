@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/interface';
 
-const API_URL = 'http://127.0.0.1:8000';
+import { API_URL } from 'src/app/constants/constants';
+
 const ID_KEY = 'user-id';
 
 

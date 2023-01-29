@@ -1,25 +1,33 @@
+<ion-content>
+
   <ion-toolbar>
     <form (ngSubmit)="search()" [formGroup]="searchForm">
-			<ion-input type="text" *ngIf="!isCleared" [innerText]="label" formControlName="search"></ion-input>
-			<ion-input type="text" placeholder="Search !" *ngIf="isCleared" formControlName="search"></ion-input>
+      <ion-input type="text" *ngIf="!isCleared" [innerText]="label" formControlName="search"></ion-input>
+			<ion-input type="text" placeholder="Search" *ngIf="isCleared" formControlName="search"></ion-input>
       <ion-icon *ngIf="!isCleared" name="trash-bin-outline" (click)="clear()"></ion-icon>
-		  <ion-button type="submit" [disabled]="!searchForm.valid" shape="round" size="small" color="medium">
+		  <ion-button type="submit" [disabled]="!searchForm.valid" shape="round" size="small" color="dark">
         <ion-icon name="search-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </form>
   </ion-toolbar>
 
-<ion-content>
+  <ion-content>
   <div *ngIf="creations.length">
     <div *ngFor="let creation of creations">
-      <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
-      <h1>
-        {{ creation.title }}
-      </h1>
-      <p *ngIf="creation.description !== 'null'">
-        {{ creation.description }}
-      </p>
-      <app-image-toolbar
+      <div class="desc">
+        <h1>
+          {{ creation.title }}
+        </h1>
+        <div class="image">
+          <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
+        </div>
+        <h3>
+          By <span (click)="seeUserDetail(creation.user.id)" class="profile">{{ creation.user.username }}</span>
+        </h3>
+        <p *ngIf="creation.description !== 'null'">
+          {{ creation.description }}
+        </p>
+        <app-image-toolbar
         [favCount]="creation.fav_count"
         [downloadCount]="creation.download_count"
         [creationId]="creation.id"
@@ -27,14 +35,17 @@
         [favorite]="creation['favorite']"
         [url]="baseSrc + creation.creation"
         [imgName]="creation.title"
-      >
-      </app-image-toolbar>
+        >
+        </app-image-toolbar>
+      </div>
     </div>
   </div>
   <div *ngIf="!creations.length && searchActive" class="placeholder">
     No Results :(
-  </div>
-  <div *ngIf="!creations.length && !searchActive" class="placeholder">
-    Search any creations by its title !
-  </div>
+    </div>
+    <div *ngIf="!creations.length && !searchActive" class="placeholder">
+      Search any creations by its title !
+    </div>
+  </ion-content>
+
 </ion-content>

@@ -1,11 +1,9 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
-	<form enctype="multipart/form-data" method="post" (ngSubmit)="register()" [formGroup]="registerForm" >
+    <div class="image">
+      <ion-img src="../assets/images/logosanstextsansfond.png"></ion-img>
+    </div>
+  	<form enctype="multipart/form-data" method="post" (ngSubmit)="register()" [formGroup]="registerForm" >
 		<div class="input-group">
       <ion-item>
 				<ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
@@ -18,13 +16,10 @@
 			<ion-item>
 				<ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
 			</ion-item>
-      <!-- <ion-item>
-				<ion-input type="password" placeholder="Confirm password" formControlName="confirmPassword"></ion-input>
-			</ion-item> -->
       <ion-item>
         <app-profile-pic-upload formControlName="profile_picture"></app-profile-pic-upload>
       </ion-item>
 		</div>
-		<ion-button type="submit" expand="block" [disabled]="!registerForm.valid">Register</ion-button>
+		<ion-button class="register" type="submit" expand="block" [disabled]="!registerForm.valid">Register</ion-button>
 	</form>
 </ion-content>

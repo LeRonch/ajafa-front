@@ -5,9 +5,9 @@ import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Creation, User } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
+import { API_URL } from 'src/app/constants/constants';
 
 const ID_KEY = 'user-id';
-const API_URL = 'http://127.0.0.1:8000';
 const regPaypal = 'paypal\.me\/[a-zA-Z0-9-_]+$';
 const regPatreon = '^https?:\/\/www\.patreon\.com\/[a-zA-Z0-9-_]+$';
 const regTwitter = '(https:\/\/twitter.com\/(?![a-zA-Z0-9_]+\/)([a-zA-Z0-9_]+))';

@@ -1,14 +1,22 @@
 <ion-content>
+
+  <h2>Your favorites :</h2>
   <div *ngIf="creations.length">
     <div *ngFor="let creation of creations">
-      <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
-      <h1>
-        {{ creation.title }}
-      </h1>
-      <p *ngIf="creation.description !== 'null'">
-        {{ creation.description }}
-      </p>
-      <app-image-toolbar
+      <div class="desc">
+        <h1>
+          {{ creation.title }}
+        </h1>
+        <div class="image">
+          <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
+        </div>
+        <h3>
+          By <span (click)="seeUserDetail(creation.user.id)" class="profile">{{ creation.user.username }}</span>
+        </h3>
+        <p *ngIf="creation.description !== 'null'">
+          {{ creation.description }}
+        </p>
+        <app-image-toolbar
         [favCount]="creation.fav_count"
         [downloadCount]="creation.download_count"
         [creationId]="creation.id"
@@ -16,8 +24,9 @@
         [favorite]="creation['favorite']"
         [url]="baseSrc + creation.creation"
         [imgName]="creation.title"
-      >
-      </app-image-toolbar>
+        >
+        </app-image-toolbar>
+      </div>
     </div>
   </div>
 </ion-content>

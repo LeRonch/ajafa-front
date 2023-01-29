@@ -1,49 +1,61 @@
-<ion-header *ngIf="creation">
-  <ion-toolbar>
-    <ion-title>{{creation[0].title | titlecase}}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content *ngIf="creation">
-  <ion-img [src]="src"></ion-img>
-  <p *ngIf="creation[0].description !== 'null'">{{creation[0].description | titlecase}}</p>
-  <h3>By <span (click)="seeUserDetail(creation[0].user.id)">{{ creation[0].user.username }}</span></h3>
-  <app-image-toolbar
-    [favCount]="creation[0].fav_count"
-    [downloadCount]="creation[0].download_count"
-    [creationId]="creation[0].id"
-    [userId]="creation[0].user.id"
-    [favorite]="creation[0]['favorite']"
-    [url]="src"
-    [imgName]="creation[0].title"
-  >
-  </app-image-toolbar>
+  <div class="desc">
+    <h1>
+      {{ creation[0].title | titlecase}}
+    </h1>
+    <div class="image">
+      <ion-img [src]="src" (click)="seeDetail(creation[0])"></ion-img>
+    </div>
+    <h3>
+      By <span class="profile" (click)="seeUserDetail(creation[0].user.id)">{{ creation[0].user.username }}</span>
+    </h3>
+    <p *ngIf="creation[0].description !== 'null'">{{creation[0].description | titlecase}}</p>
+    <app-image-toolbar
+      [favCount]="creation[0].fav_count"
+      [downloadCount]="creation[0].download_count"
+      [creationId]="creation[0].id"
+      [userId]="creation[0].user.id"
+      [favorite]="creation[0]['favorite']"
+      [url]="src"
+      [imgName]="creation[0].title"
+    >
+    </app-image-toolbar>
+  </div>
 
   <br>
 
-  <ion-button shape="round" (click)="formIsOpen = !formIsOpen">
-    Post a comment &nbsp;<ion-icon name="pencil-outline"></ion-icon>
-  </ion-button>
+  <div class="post-comment">
+    <ion-button shape="round" (click)="formIsOpen = !formIsOpen">
+      Post a comment
+    </ion-button>
+  </div>
 
   <div *ngIf="formIsOpen">
-
-    <form>
-      <form (ngSubmit)="postComment(creation[0].id)" [formGroup]="commentForm">
-        <ion-input type="text" placeholder="Comment here..." formControlName="comment"></ion-input>
-        <ion-button type="submit" [disabled]="!commentForm.valid">Post</ion-button>
+    <div class="comment-form">
+      <form>
+        <form (ngSubmit)="postComment(creation[0].id)" [formGroup]="commentForm">
+          <ion-item>
+            <ion-input type="text" placeholder="Say something" formControlName="comment"></ion-input>
+          </ion-item>
+          <div class="comment-button">
+            <ion-button type="submit" [disabled]="!commentForm.valid">Post</ion-button>
+          </div>
+        </form>
       </form>
-    </form>
+    </div>
 
   </div>
 
   <div *ngIf="comments">
     <div *ngFor="let comment of comments">
-      <div>
-        <span (click)="seeUserDetail(creation[0].user.id)">{{ comment.commenting_user.username }}</span> {{ comment.date | date: 'medium'}}
+      <div class="comment">
+        <div>
+          <span class="profile" (click)="seeUserDetail(creation[0].user.id)">{{ comment.commenting_user.username }}</span> - {{ comment.date | date: 'medium'}}
+        </div>
+        <p>
+          {{ comment.content }}
+        </p>
       </div>
-      <p>
-        {{ comment.content }}
-      </p>
     </div>
 
   </div>

@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { Storage } from '@capacitor/storage';
+import { API_URL } from 'src/app/constants/constants';
 
 const TOKEN_KEY = 'my-token';
 const ID_KEY = 'user-id';
-const API_URL = 'http://127.0.0.1:8000';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,7 +16,9 @@ export class AuthenticationService {
 	isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 	token = '';
 
-	constructor(private http: HttpClient) {
+	constructor(
+    private http: HttpClient
+  ) {
 		this.loadToken();
 	}
 

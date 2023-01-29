@@ -61,8 +61,13 @@ export class UploadPage implements OnInit {
   async successAlert() {
     const alert = await this.alertController.create({
       header: 'Success !',
-      message: 'Your links have been successfully updated',
-      buttons: ['Ok !'],
+      message: 'Your creation have been successfully uploaded !',
+      buttons: [{
+        text: 'Ok !',
+        handler: () => {
+            this.router.navigateByUrl('/home');
+          }
+      }],
     });
 
     await alert.present();
@@ -72,7 +77,7 @@ export class UploadPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Woops !',
       message: 'Sorry, it seems something went wrong ! Please refresh and try again !',
-      buttons: ['Ok...'],
+      buttons: ['Dismiss'],
     });
 
     await alert.present();

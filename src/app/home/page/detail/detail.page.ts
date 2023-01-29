@@ -5,9 +5,10 @@ import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { API_URL } from 'src/app/constants/constants';
 
 const ID_KEY = 'user-id';
-const API_URL = 'http://127.0.0.1:8000';
+
 
 @Component({
   selector: 'app-detail',
@@ -87,6 +88,10 @@ export class DetailPage implements OnInit, OnDestroy {
       message: 'Sorry, it seems something went wrong ! Please refresh and try again !',
       buttons: ['Ok...'],
     });
+  }
+
+  seeDetail(creation: Creation): void {
+    this.router.navigateByUrl(`/home/detail/${creation.id}`);
   }
 
   seeUserDetail(userId: number): void {

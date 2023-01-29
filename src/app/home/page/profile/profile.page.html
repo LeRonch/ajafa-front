@@ -1,34 +1,48 @@
 <ion-content>
-  <div *ngIf="user">
+  <div *ngIf="user" class="user">
     <div class="header">
-      <ion-img class="pp" [src]="src"></ion-img>
-      <ion-list-header>{{user.username}}</ion-list-header>
-      <ion-list-header>{{user.email}}</ion-list-header>
+      <div class="image">
+        <ion-img [src]="src"></ion-img>
+      </div>
+      <h1>
+        {{user.username}}
+      </h1>
+      <div class="mail">
+        {{user.email}}
+      </div>
     </div>
 
-    <div *ngIf="user.profile_picture.description !== 'null'">
-        {{ user.profile_picture.description }}
+    <div *ngIf="user.profile_picture.description !== 'null'" class="description">
+        "{{ user.profile_picture.description }}"
     </div>
 
-    <div *ngIf="user.profile_picture.paypal_link !== 'null' || !user.profile_picture.paypal_link">
-     <a [href]="user.profile_picture.paypal_link" target="_blank" rel="noopener noreferrer">Paypal</a>
-    </div>
-    <div *ngIf="user.profile_picture.patreon_link !== 'null' || !user.profile_picture.paypal_link">
-      <a [href]="user.profile_picture.patreon_link" target="_blank" rel="noopener noreferrer">Patreon</a>
-    </div>
-    <div *ngIf="user.profile_picture.twitter_link !== 'null' || !user.profile_picture.paypal_link">
-      <a [href]="user.profile_picture.twitter_link" target="_blank" rel="noopener noreferrer">Twitter</a>
+    <div class="links">
+      <div *ngIf="user.profile_picture.paypal_link !== 'null' || !user.profile_picture.paypal_link">
+        <ion-icon name="link-outline"></ion-icon>&nbsp;
+        <a [href]="user.profile_picture.paypal_link" target="_blank" rel="noopener noreferrer">Paypal</a>
+      </div>
+      <div *ngIf="user.profile_picture.patreon_link !== 'null' || !user.profile_picture.patreon_link">
+        <ion-icon name="link-outline"></ion-icon>&nbsp;
+        <a [href]="user.profile_picture.patreon_link" target="_blank" rel="noopener noreferrer">Patreon</a>
+      </div>
+      <div *ngIf="user.profile_picture.twitter_link !== 'null' || !user.profile_picture.twitter_link">
+        <ion-icon name="link-outline"></ion-icon>&nbsp;
+        <a [href]="user.profile_picture.twitter_link" target="_blank" rel="noopener noreferrer">Twitter</a>
+      </div>
     </div>
     <br>
 
-    <div *ngIf="formLinkIsOpen">
+    <div *ngIf="formLinkIsOpen" class="link-form">
 
       <form>
         <form (ngSubmit)="addDesc()" [formGroup]="descForm">
-          <ion-input type="text" [(ngModel)]="user.profile_picture.description" formControlName="description">
-
-          </ion-input>
-		      <ion-button type="submit" [disabled]="!descForm.valid">Update</ion-button>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="user.profile_picture.description" formControlName="description">
+            </ion-input>
+          </ion-item>
+          <div class="edit-button">
+            <ion-button type="submit" [disabled]="!descForm.valid">Update description</ion-button>
+          </div>
         </form>
       </form>
 
@@ -36,39 +50,53 @@
 
       <form>
         <form (ngSubmit)="addLinks()" [formGroup]="linkForm">
-          <ion-input type="text" placeholder="Paypal" formControlName="paypalLink"></ion-input>
-          <ion-input type="text" placeholder="Patreon" formControlName="patreonLink"></ion-input>
-          <ion-input type="text" placeholder="Twitter" formControlName="twitterLink"></ion-input>
-		      <ion-button type="submit" [disabled]="!linkForm.valid">Update</ion-button>
+          <ion-item>
+            <ion-input type="text" placeholder="Paypal" formControlName="paypalLink"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" placeholder="Patreon" formControlName="patreonLink"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" placeholder="Twitter" formControlName="twitterLink"></ion-input>
+          </ion-item>
+          <div class="edit-button">
+            <ion-button type="submit" [disabled]="!linkForm.valid">Update links</ion-button>
+          </div>
         </form>
       </form>
     </div>
 
-    <ion-button shape="round" (click)="formLinkIsOpen = !formLinkIsOpen">
-      Manage your rofile&nbsp;<ion-icon name="pencil-outline"></ion-icon>
-    </ion-button>
+    <div class="edit">
+      <ion-button shape="round" (click)="formLinkIsOpen = !formLinkIsOpen">
+        Manage your profile&nbsp;<ion-icon name="pencil-outline"></ion-icon>
+      </ion-button>
+    </div>
   </div>
 
   <div *ngIf="creations">
 
     <div *ngFor="let creation of creations">
-      <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
-      <h1>
-        {{ creation.title }}
-      </h1>
-      <p *ngIf="creation.description !== 'null'">
-        {{ creation.description }}
-      </p>
-      <app-image-toolbar
-      [favCount]="creation.fav_count"
-      [downloadCount]="creation.download_count"
-      [creationId]="creation.id"
-      [userId]="creation.user.id"
-      [favorite]="creation['favorite']"
-      [url]="baseSrc + creation.creation"
-      [imgName]="creation.title"
-    >
-    </app-image-toolbar>
+      <div class="desc">
+        <h1>
+          {{ creation.title }}
+        </h1>
+        <div class="image1">
+          <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
+        </div>
+        <p *ngIf="creation.description !== 'null'">
+          {{ creation.description }}
+        </p>
+        <app-image-toolbar
+          [favCount]="creation.fav_count"
+          [downloadCount]="creation.download_count"
+          [creationId]="creation.id"
+          [userId]="creation.user.id"
+          [favorite]="creation['favorite']"
+          [url]="baseSrc + creation.creation"
+          [imgName]="creation.title"
+          >
+        </app-image-toolbar>
+      </div>
     </div>
   </div>
 </ion-content>

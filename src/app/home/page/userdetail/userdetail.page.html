@@ -1,45 +1,69 @@
 <ion-header *ngIf="user">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Creator {{user.username}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="user">
+  <div class="user">
+
     <div class="header">
-      <ion-img class="pp" [src]="src"></ion-img>
-      <ion-list-header>{{user.email}}</ion-list-header>
+      <div class="image">
+        <ion-img [src]="src"></ion-img>
+      </div>
+      <div class="mail">
+        {{user.email}}
+      </div>
     </div>
 
-    <div *ngIf="user.profile_picture.paypal_link !== 'null' || !user.profile_picture.paypal_link">
-     <a [href]="user.profile_picture.paypal_link" target="_blank" rel="noopener noreferrer">Paypal</a>
+    <div *ngIf="user.profile_picture.description !== null" class="description">
+      "{{ user.profile_picture.description }}"
     </div>
-    <div *ngIf="user.profile_picture.patreon_link !== 'null' || !user.profile_picture.paypal_link">
-      <a [href]="user.profile_picture.patreon_link" target="_blank" rel="noopener noreferrer">Patreon</a>
+
+    <div class="links">
+      <div *ngIf="user.profile_picture.paypal_link !== null">
+        <ion-icon name="link-outline"></ion-icon>&nbsp;
+        <a [href]="user.profile_picture.paypal_link" target="_blank" rel="noopener noreferrer">Paypal</a>
+      </div>
+      <div *ngIf="user.profile_picture.patreon_link !== null">
+        <ion-icon name="link-outline"></ion-icon>&nbsp;
+        <a [href]="user.profile_picture.patreon_link" target="_blank" rel="noopener noreferrer">Patreon</a>
+      </div>
+      <div *ngIf="user.profile_picture.twitter_link !== null">
+        <ion-icon name="link-outline"></ion-icon>&nbsp;
+        <a [href]="user.profile_picture.twitter_link" target="_blank" rel="noopener noreferrer">Twitter</a>
+      </div>
     </div>
-    <div *ngIf="user.profile_picture.twitter_link !== 'null' || !user.profile_picture.paypal_link">
-      <a [href]="user.profile_picture.twitter_link" target="_blank" rel="noopener noreferrer">Twitter</a>
-    </div>
+  </div>
 
   <div *ngIf="creations">
 
+    <h2>
+      {{user.username}}'s creation(s) :
+    </h2>
+
     <div *ngFor="let creation of creations">
-      <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
-      <h1>
-        {{ creation.title }}
-      </h1>
-      <p *ngIf="creation.description !== 'null'">
-        {{ creation.description }}
-      </p>
-      <app-image-toolbar
-      [favCount]="creation.fav_count"
-      [downloadCount]="creation.download_count"
-      [creationId]="creation.id"
-      [userId]="creation.user.id"
-      [favorite]="creation['favorite']"
-      [url]="baseSrc + creation.creation"
-      [imgName]="creation.title"
-    >
-    </app-image-toolbar>
+      <div class="desc">
+        <h1>
+          {{ creation.title }}
+        </h1>
+        <div class="image1">
+          <ion-img [src]="baseSrc + creation.creation" (click)="seeDetail(creation)"></ion-img>
+        </div>
+        <p *ngIf="creation.description !== 'null'">
+          {{ creation.description }}
+        </p>
+        <app-image-toolbar
+          [favCount]="creation.fav_count"
+          [downloadCount]="creation.download_count"
+          [creationId]="creation.id"
+          [userId]="creation.user.id"
+          [favorite]="creation['favorite']"
+          [url]="baseSrc + creation.creation"
+          [imgName]="creation.title"
+          >
+        </app-image-toolbar>
+      </div>
     </div>
   </div>
 </ion-content>

@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from '../interfaces/interface';
 import { ApiService } from '../services/api.service';
+import { API_URL } from 'src/app/constants/constants';
 
 const ID_KEY = 'user-id';
-const API_URL = 'http://127.0.0.1:8000';
+
 
 @Component({
   selector: 'app-home',

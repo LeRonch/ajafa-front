@@ -1,14 +1,11 @@
-<!-- <ion-header>
-	<ion-toolbar color="primary">
-		<ion-title>AJAFA</ion-title>
-	</ion-toolbar>
-</ion-header> -->
 
 <ion-split-pane contentId="main-content">
   <ion-menu contentId="main-content" type="overlay">
     <ion-content>
       <ion-list id="inbox-list" *ngIf="user">
-        <ion-img [src]="src"></ion-img>
+        <div class="image">
+          <ion-img [src]="src"></ion-img>
+        </div>
         <ion-list-header>{{user.username}}</ion-list-header>
         <ion-note>{{user.email}}</ion-note>
         <ion-menu-toggle auto-hide="false">
@@ -40,6 +37,10 @@
             <app-logout></app-logout>
           </ion-item>
         </ion-menu-toggle>
+
+        <div class="image1">
+          <ion-img src="../assets/images/logosanstextsansfond.png"></ion-img>
+        </div>
       </ion-list>
     </ion-content>
   </ion-menu>

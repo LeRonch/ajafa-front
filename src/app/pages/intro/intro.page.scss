@@ -1,9 +1,24 @@
 ion-content {
-	--background: #282828;
+	--background: #262626;
 }
 
 ion-slides {
 	height: 100%;
 	--bullet-background-active: rgb(255, 255, 255);
-	--bullet-background: #000;
+	--bullet-background: rgb(95, 0, 46);
+}
+
+.image {
+  width: 140px;
+  margin: auto;
+}
+
+.image1 {
+  width: 65%;
+  margin: auto;
+}
+
+.text {
+  margin-left: 20px;
+  margin-right: 20px;
 }

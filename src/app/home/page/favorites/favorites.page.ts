@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Creation } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
+import { API_URL } from 'src/app/constants/constants';
 
 const ID_KEY = 'user-id';
-const API_URL = 'http://127.0.0.1:8000';
 
 @Component({
   selector: 'app-favorites',
@@ -39,6 +39,15 @@ export class FavoritesPage implements OnInit, OnDestroy {
       subscription.unsubscribe();
     });
   }
+
+  seeUserDetail(userId: number): void {
+    if(userId === +this.userId) {
+      this.router.navigateByUrl('/home/profile');
+    } else {
+      this.router.navigateByUrl(`/home/userdetail/${userId}`);
+    }
+  }
+
 
   seeDetail(creation: Creation): void {
     this.router.navigateByUrl(`/home/detail/${creation.id}`);

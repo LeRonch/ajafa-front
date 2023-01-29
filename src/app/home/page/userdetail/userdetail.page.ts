@@ -4,7 +4,8 @@ import { Subscription } from 'rxjs';
 import { Creation, User } from 'src/app/interfaces/interface';
 import { ApiService } from 'src/app/services/api.service';
 
-const API_URL = 'http://127.0.0.1:8000';
+import { API_URL } from 'src/app/constants/constants';
+
 
 @Component({
   selector: 'app-userdetail',
@@ -31,6 +32,7 @@ export class UserDetailPage implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.apiService.getUser(id).subscribe((data: User) => {
         this.user = data;
+
         this.src = API_URL + data.profile_picture.profile_picture;
       }),
       this.apiService.getCreationsByUser(id).subscribe((data: Creation[]) => {
